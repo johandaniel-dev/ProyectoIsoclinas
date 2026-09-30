@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Graficador de Ecuaciones Diferenciales</title>
+
+    <!-- Estilos -->
+    <link rel="stylesheet" href="styles.css">
+
+</head>
+
+
+<body>
+
+    <!-- ==========================================
+         ENCABEZADO
+         ========================================== -->
+
+    <header class="encabezado">
+
+        <div>
+
+            <h1>Graficador de Ecuaciones Diferenciales</h1>
+
+            <p>
+                Campo de direcciones, isoclinas y matriz de pendientes
+            </p>
+
+        </div>
+
+    </header>
+
+
+    <!-- ==========================================
+         CONTENEDOR PRINCIPAL
+         ========================================== -->
+
+    <main class="contenedor">
+
+
+        <!-- ======================================
+             PANEL DE CONFIGURACIÓN
+             ====================================== -->
+
+        <section class="panel controles">
+
+            <h2>Configuración</h2>
+
+
+            <!-- ECUACIÓN -->
+
+            <div class="grupo">
+
+                <label for="ecuacion">
+                    Ecuación diferencial
+                </label>
+
+                <input
+                    type="text"
+                    id="ecuacion"
+                    value="x + y"
+                    placeholder="Ejemplo: x + y"
+                >
+
+                <small>
+                    Escribe únicamente f(x,y). Ejemplo:
+                    <strong>x + y</strong>
+                </small>
+
+            </div>
+
+
+            <!-- PUNTO -->
+
+            <div class="grupo">
+
+                <label>Punto de interés</label>
+
+                <div class="fila">
+
+                    <div>
+
+                        <span>X</span>
+
+                        <input
+                            type="number"
+                            id="puntoX"
+                            value="1"
+                            step="any"
+                        >
+
+                    </div>
+
+
+                    <div>
+
+                        <span>Y</span>
+
+                        <input
+                            type="number"
+                            id="puntoY"
+                            value="2"
+                            step="any"
+                        >
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- RANGO X -->
+
+            <div class="grupo">
+
+                <label>Rango de X</label>
+
+                <div class="fila">
+
+                    <div>
+
+                        <span>Mínimo</span>
+
+                        <input
+                            type="number"
+                            id="rangoXMin"
+                            value="-5"
+                            step="any"
+                        >
+
+                    </div>
+
+
+                    <div>
+
+                        <span>Máximo</span>
+
+                        <input
+                            type="number"
+                            id="rangoXMax"
+                            value="5"
+                            step="any"
+                        >
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- RANGO Y -->
+
+            <div class="grupo">
+
+                <label>Rango de Y</label>
+
+                <div class="fila">
+
+                    <div>
+
+                        <span>Mínimo</span>
+
+                        <input
+                            type="number"
+                            id="rangoYMin"
+                            value="-5"
+                            step="any"
+                        >
+
+                    </div>
+
+
+                    <div>
+
+                        <span>Máximo</span>
+
+                        <input
+                            type="number"
+                            id="rangoYMax"
+                            value="5"
+                            step="any"
+                        >
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- CANTIDAD DE PUNTOS -->
+
+            <div class="grupo">
+
+                <label for="cantidadPuntos">
+                    Resolución de la matriz
+                </label>
+
+                <input
+                    type="number"
+                    id="cantidadPuntos"
+                    value="20"
+                    min="5"
+                    max="50"
+                >
+
+                <small>
+                    Entre 5 y 50 puntos por eje.
+                </small>
+
+            </div>
+
+
+            <!-- RESULTADO -->
+
+            <div class="resultado" id="resultado">
+
+                En el punto (1, 2) la pendiente es: -1
+
+            </div>
+
+
+        </section>
+
+
+        <!-- ======================================
+             PANEL DEL GRÁFICO
+             ====================================== -->
+
+        <section class="panel grafico-panel">
+
+            <div class="titulo-grafico">
+
+                <div>
+
+                    <h2>Visualización</h2>
+
+                    <p>
+                        Campo de direcciones e isoclinas
+                    </p>
+
+                </div>
+
+                <span class="indicador">
+                    ● En vivo
+                </span>
+
+            </div>
+
+
+            <div id="grafico"></div>
+
+        </section>
+
+        <aside class="panel panel-ayuda">
+
+    <div class="ayuda-titulo">
+        <span class="ayuda-icono">?</span>
+
+        <div>
+            <h2>¿Cómo escribir la ecuación?</h2>
+            <p>Guía rápida de símbolos y funciones</p>
+        </div>
+    </div>
+
+    <div class="ayuda-bloque">
+
+        <h3>Operaciones básicas</h3>
+
+        <div class="ayuda-ejemplo">
+            <span>Potencia</span>
+            <code>x^2</code>
+        </div>
+
+        <div class="ayuda-ejemplo">
+            <span>Multiplicación</span>
+            <code>x * y</code>
+        </div>
+
+        <div class="ayuda-ejemplo">
+            <span>División</span>
+            <code>x / y</code>
+        </div>
+
+    </div>
+
+
+    <div class="ayuda-bloque">
+
+        <h3>Funciones</h3>
+
+        <div class="ayuda-ejemplo">
+            <span>Raíz cuadrada</span>
+            <code>sqrt(x)</code>
+        </div>
+
+        <div class="ayuda-ejemplo">
+            <span>Logaritmo natural</span>
+            <code>ln(x)</code>
+        </div>
+
+        <div class="ayuda-ejemplo">
+            <span>Seno</span>
+            <code>sen(x)</code>
+        </div>
+
+        <div class="ayuda-ejemplo">
+            <span>Coseno</span>
+            <code>cos(x)</code>
+        </div>
+
+        <div class="ayuda-ejemplo">
+            <span>Tangente</span>
+            <code>tan(x)</code>
+        </div>
+
+        <div class="ayuda-ejemplo">
+            <span>Exponencial</span>
+            <code>e^x</code>
+        </div>
+
+    </div>
+
+
+    <div class="ayuda-bloque">
+
+        <h3>Ejemplos de ecuaciones</h3>
+
+        <div class="ecuacion-ejemplo">
+            <span>dy/dx = x - y</span>
+            <code>x - y</code>
+        </div>
+
+        <div class="ecuacion-ejemplo">
+            <span>dy/dx = √(x - y)</span>
+            <code>sqrt(x - y)</code>
+        </div>
+
+        <div class="ecuacion-ejemplo">
+            <span>dy/dx = x ln(y)</span>
+            <code>x * ln(y)</code>
+        </div>
+
+        <div class="ecuacion-ejemplo">
+            <span>dy/dx = sen(x) - y</span>
+            <code>sen(x) - y</code>
+        </div>
+
+    </div>
+
+
+    <div class="ayuda-nota">
+
+        <strong>Recuerda:</strong>
+
+        <p>
+            Si tienes una condición como
+            <b>y(2) = 1</b>, debes ingresar:
+        </p>
+
+        <code>X = 2 &nbsp;&nbsp; Y = 1</code>
+
+    </div>
+
+</aside>
+
+
+        <!-- ======================================
+             MATRIZ
+             ====================================== -->
+
+        <section class="panel matriz-panel">
+
+            <h2>Matriz de pendientes</h2>
+
+            <p>
+                Valores de f(x,y) evaluados en la cuadrícula.
+            </p>
+
+            <div
+                id="matriz"
+                class="tabla-contenedor"
+            ></div>
+
+        </section>
+
+        <section class="panel matriz-panel">
+
+    <h2>Matriz simplificada</h2>
+
+    <p>
+        Representación sencilla de las pendientes usando valores enteros.
+    </p>
+
+    <div
+        id="matrizSimple"
+        class="tabla-contenedor tabla-simple"
+    ></div>
+
+</section>
+
+
+    </main>
+
+
+    <!-- ==========================================
+         LIBRERÍAS
+         ========================================== -->
+
+    <script src="https://cdn.jsdelivr.net/npm/mathjs@14/lib/browser/math.js"></script>
+
+    <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+
+
+    <!-- Nuestro JavaScript -->
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
